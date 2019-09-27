@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,9 @@ namespace FishingProject.Models
         [DataType(DataType.Date)]
         public DateTime? TournamentDate { get; set; }
         public Location Location { get; set; }
-        public List<Team> Teams { get; set; }
+        public virtual ICollection<Team> Teams { get; set; }
+        [ForeignKey("Organization")]
+        public int OrganizationId { get; set; }
+        public virtual Organization Organization { get; set; }
     }
 }

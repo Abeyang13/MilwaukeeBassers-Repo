@@ -20,6 +20,8 @@ namespace FishingProject.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<Participant> Participants { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
