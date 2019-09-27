@@ -1,0 +1,14 @@
+﻿@{
+    if (this.User.IsInRole("Participant"))
+    {
+        Layout = "~/Views/Shared/_LayoutParticipant.cshtml";
+    }
+    else if (this.User.IsInRole("Organization"))
+    {
+        Layout = "~/Views/Shared/_LayoutOrganization.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
