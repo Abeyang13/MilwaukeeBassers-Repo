@@ -22,6 +22,9 @@ namespace FishingProject.Models
     {
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Participant> Participants { get; set; }
+        public DbSet<Tournament> Tournaments { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TournamentTeam> TournamentTeams { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

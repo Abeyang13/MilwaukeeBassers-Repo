@@ -13,7 +13,7 @@ namespace FishingProject.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201909271512220_initial"; }
+            get { return "201909301510403_initial"; }
         }
         
         string IMigrationMetadata.Source

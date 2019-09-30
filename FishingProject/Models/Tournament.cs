@@ -17,9 +17,8 @@ namespace FishingProject.Models
         [DataType(DataType.Date)]
         public DateTime? TournamentDate { get; set; }
         public Location Location { get; set; }
-        public virtual ICollection<Team> Teams { get; set; }
         [ForeignKey("Organization")]
         public int OrganizationId { get; set; }
-        public virtual Organization Organization { get; set; }
+        public Organization Organization { get; set; }
     }
 }

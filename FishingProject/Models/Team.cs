@@ -13,12 +13,6 @@ namespace FishingProject.Models
         public int TeamId { get; set; }
         [Display(Name = "Team Name")]
         public string TeamName { get; set; }
-        public int NumberOfFishes { get; set; }
-        public double TotalWeight { get; set; }
-        public double BigBass { get; set; }
 
-        [ForeignKey("Tournament")]
-        public int TournamentId { get; set; }
-        public virtual Tournament Tournament { get; set; }
     }
 }

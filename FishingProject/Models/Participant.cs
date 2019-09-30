@@ -15,6 +15,9 @@ namespace FishingProject.Models
         public string FirstName { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [ForeignKey("Team")]
+        public int? TeamId { get; set; }
+        public Team Team { get; set; }
         [ForeignKey("ApplicationUser")]
         public string ApplicationId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
