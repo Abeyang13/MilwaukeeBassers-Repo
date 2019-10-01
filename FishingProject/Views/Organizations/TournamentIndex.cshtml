@@ -26,13 +26,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.TournamentDate)
         </td>
-        <div>
-            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RegisterTeam", "Participants")'">Register</button>
-        </div>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TournamentId }) |
             @Html.ActionLink("TournamentDetails", "TournamentDetails", new { id=item.TournamentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TournamentId })
+            @Html.ActionLink("Delete", "Delete", new { id=item.TournamentId }) |
         </td>
     </tr>
 }

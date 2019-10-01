@@ -13,6 +13,5 @@ namespace FishingProject.Models
         public int TeamId { get; set; }
         [Display(Name = "Team Name")]
         public string TeamName { get; set; }
-
     }
 }

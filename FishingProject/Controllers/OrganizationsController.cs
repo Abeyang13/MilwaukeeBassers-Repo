@@ -1,5 +1,6 @@
 ﻿using FishingProject.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -55,13 +56,17 @@ namespace FishingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,OrganizationId")] Tournament tournament)
+        public ActionResult CreateTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,Location,OrganizationId")] Tournament tournament, Location location)
         {
             if (ModelState.IsValid)
             {
                 var currentUserId = User.Identity.GetUserId();
                 Organization organization = db.Organizations.Where(o => o.ApplicationId == currentUserId).Single();
                 tournament.OrganizationId = organization.OrganizationId;
+                string addressToConvert = ConvertAddressToGoogleFormat(location);
+                var geoLocate = GeoLocate(addressToConvert);
+                location.Longitude = geoLocate.results[0].geometry.location.lng;
+                location.Latitude = geoLocate.results[0].geometry.location.lat;
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -148,8 +153,19 @@ namespace FishingProject.Controllers
             return RedirectToAction("Index");
         }
 
+        public string ConvertAddressToGoogleFormat(Location location)
+        {
+            string googleFormatAddress = location.StreetAddress + "," + location.City + "," + location.State + "," + location.ZipCode + "," + location.Country;
+            return googleFormatAddress;
+        }
 
-
+        public GeoCode GeoLocate(string location)
+        {
+            var requestUrl = $"https://maps.googleapis.com/maps/api/geocode/json?address={location}&key=AIzaSyCvNx58z28nAtRCUDGJU6xi2qisdrmE1dQ";
+            var result = new WebClient().DownloadString(requestUrl);
+            GeoCode geocode = JsonConvert.DeserializeObject<GeoCode>(result);
+            return geocode;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

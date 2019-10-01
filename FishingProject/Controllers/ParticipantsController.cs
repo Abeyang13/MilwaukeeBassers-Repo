@@ -126,19 +126,21 @@ namespace FishingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RegisterTeam([Bind(Include = "TeamId,TeamName")] Team team)
+        public ActionResult RegisterTeam([Bind(Include = "TeamId,TeamName")] Team team, Tournament tournament)
         {
             if (ModelState.IsValid)
             {
                 var currentUserId = User.Identity.GetUserId();
                 Participant participant = db.Participants.Where(p => p.ApplicationId == currentUserId).Single();
+                participant.TeamId = team.TeamId;
                 db.Teams.Add(team);
                 db.SaveChanges();
-                //TournamentTeam tournamentTeam = new TournamentTeam();
-                //tournamentTeam.TournamentId = tournament.TournamentId;
-                //tournamentTeam.TeamId = team.TeamId;
-                //db.TournamentTeams.Add(tournamentTeam);
-                //db.SaveChanges();
+
+                TournamentTeam tournamentTeam = new TournamentTeam();
+                tournamentTeam.TeamId = team.TeamId;
+                tournamentTeam.TournamentId = tournament.TournamentId;
+                db.TournamentTeams.Add(tournamentTeam);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(team);
