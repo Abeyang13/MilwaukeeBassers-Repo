@@ -11,9 +11,6 @@ namespace FishingProject.Models
     {
         [Key]
         public int TournamentTeamId { get; set; }
-        public double BigBass { get; set; }
-        public int NumberOfFishes { get; set; }
-        public double TotalWeight { get; set; }
 
         [ForeignKey("Team")]
         public int TeamId { get; set; }
@@ -22,5 +19,10 @@ namespace FishingProject.Models
         [ForeignKey("Tournament")]
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
+        public double BigBass { get; set; }
+        public int NumberOfFishes { get; set; }
+        public double TotalWeight { get; set; }
+
+
     }
 }

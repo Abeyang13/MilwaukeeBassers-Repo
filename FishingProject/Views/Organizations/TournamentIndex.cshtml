@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FishingProject.Models.Tournament>
+
+@{ 
+    ViewBag.Title = "TournamentIndex";
+}
+
+<h2>List Of Tournaments</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TournamentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TournamentDate)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TournamentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TournamentDate)
+        </td>
+        <div>
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RegisterTeam", "Participants")'">Register</button>
+        </div>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TournamentId }) |
+            @Html.ActionLink("TournamentDetails", "TournamentDetails", new { id=item.TournamentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TournamentId })
+        </td>
+    </tr>
+}
+
+</table>
