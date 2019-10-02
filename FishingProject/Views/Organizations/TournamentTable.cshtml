@@ -1,0 +1,48 @@
+﻿@model IEnumerable<FishingProject.Models.TournamentTeam>
+
+<h2>Teams In Tournament</h2>
+<table class="table">
+    <tr>
+        <th>
+            Team
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BigBass)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberOfFishes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalWeight)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.TeamName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BigBass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfFishes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalWeight)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TournamentTeamId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TournamentTeamId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TournamentTeamId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

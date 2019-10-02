@@ -30,6 +30,7 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.TournamentId }) |
             @Html.ActionLink("TournamentDetails", "TournamentDetails", new { id=item.TournamentId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.TournamentId }) |
+            @Html.ActionLink("TournamentTable", "TournamentTable", new { id=item.TournamentId}) |
             <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("RegisterTeam", "Participants", new { id=item.TournamentId })'">Register</button>
         </td>
     </tr>

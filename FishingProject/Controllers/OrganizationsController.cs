@@ -118,8 +118,8 @@ namespace FishingProject.Controllers
         //GET: List of tournament teams
         public ActionResult TournamentTable(int id)
         {
-            var tournamentId = db.TournamentTeams.Where(t => t.TournamentId == id).Single();
-            return View();
+            var tournamentId = db.TournamentTeams.OrderByDescending(t => t.TotalWeight).Include(t => t.Team).Where(t => t.TournamentId == id);
+            return View(tournamentId);
         }
         
         // GET: Teams/Delete
