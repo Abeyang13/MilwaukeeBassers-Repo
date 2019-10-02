@@ -118,32 +118,30 @@ namespace FishingProject.Controllers
         }
 
         //GET: Participants/CreateTeam
-        public ActionResult RegisterTeam()
+        public ActionResult RegisterTeam(int id)
         {
-            Team team = new Team();
-            return View(team);
+            TournamentTeamViewModels tournamentTeamView = new TournamentTeamViewModels();
+            var tournament = db.Tournaments.FirstOrDefault(t => t.TournamentId == id);
+            tournamentTeamView.Tournament = tournament;
+            return View(tournamentTeamView);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult RegisterTeam([Bind(Include = "TeamId,TeamName")] Team team, Tournament tournament)
+        public ActionResult RegisterTeam(TournamentTeamViewModels teamViewModels)
         {
-            if (ModelState.IsValid)
-            {
                 var currentUserId = User.Identity.GetUserId();
                 Participant participant = db.Participants.Where(p => p.ApplicationId == currentUserId).Single();
-                participant.TeamId = team.TeamId;
-                db.Teams.Add(team);
+                participant.TeamId = teamViewModels.Team.TeamId;
+                db.Teams.Add(teamViewModels.Team);
                 db.SaveChanges();
 
                 TournamentTeam tournamentTeam = new TournamentTeam();
-                tournamentTeam.TeamId = team.TeamId;
-                tournamentTeam.TournamentId = tournament.TournamentId;
+                tournamentTeam.TeamId = teamViewModels.Team.TeamId;
+                tournamentTeam.TournamentId = teamViewModels.Tournament.TournamentId;
                 db.TournamentTeams.Add(tournamentTeam);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(team);
         }
 
         protected override void Dispose(bool disposing)

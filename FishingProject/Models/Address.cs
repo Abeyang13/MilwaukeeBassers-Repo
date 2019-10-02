@@ -6,10 +6,10 @@ using System.Web;
 
 namespace FishingProject.Models
 {
-    public class Location
+    public class Address
     {
         [Key]
-        public int LocationId { get; set; }
+        public int AddressId { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public string City { get; set; }

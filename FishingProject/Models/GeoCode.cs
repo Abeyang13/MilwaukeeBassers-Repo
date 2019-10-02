@@ -30,7 +30,7 @@ namespace FishingProject.Models
         public Southwest southwest { get; set; }
     }
 
-    public class LocationComponent
+    public class Location
     {
         public double lat { get; set; }
         public double lng { get; set; }
@@ -56,8 +56,7 @@ namespace FishingProject.Models
 
     public class Geometry
     {
-        public Bounds bounds { get; set; }
-        public LocationComponent location { get; set; }
+        public Location location { get; set; }
         public string location_type { get; set; }
         public Viewport viewport { get; set; }
     }

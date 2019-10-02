@@ -1,6 +1,6 @@
 ﻿@model FishingProject.Models.Tournament
 
-@{ 
+@{
     ViewBag.Title = "TournamentDetails";
 }
 
@@ -25,7 +25,7 @@
         </dd>
     </dl>
 </div>
-
+<br/>
 <html>
 <head>
     <style>
@@ -42,14 +42,14 @@
     <div id="map"></div>
     <script>
         function initMap() {
-            var location = { lat: @Html.DisplayFor(model => model.Location.Latitude), lng: @Html.DisplayFor(model => model.Location.Longitude) };
+            var location = { lat: @Html.DisplayFor(model => model.Address.Latitude), lng: @Html.DisplayFor(model => model.Address.Longitude) };
             var map = new google.maps.Map(
                 document.getElementById('map'), { zoom: 15, center: location });
             var marker = new google.maps.Marker({ position: location, map: map });
         }
     </script>
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClyvpgjTpah8jJL_JJdO1u2ljnS9MDC-M&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=@Keys.GoogleGeoCodeAPIKey&callback=initMap">
     </script>
 </body>
 </html>
@@ -57,3 +57,7 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.TournamentId }) |
     @Html.ActionLink("Back to List", "TournamentIndex")
 </p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

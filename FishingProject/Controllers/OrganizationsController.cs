@@ -1,4 +1,5 @@
-﻿using FishingProject.Models;
+﻿using FishingProject;
+using FishingProject.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
 namespace FishingProject.Controllers
 {
     public class OrganizationsController : Controller
@@ -56,17 +56,20 @@ namespace FishingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,Location,OrganizationId")] Tournament tournament, Location location)
+        public ActionResult CreateTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,Address,OrganizationId")] Tournament tournament)
         {
             if (ModelState.IsValid)
             {
                 var currentUserId = User.Identity.GetUserId();
                 Organization organization = db.Organizations.Where(o => o.ApplicationId == currentUserId).Single();
                 tournament.OrganizationId = organization.OrganizationId;
-                string addressToConvert = ConvertAddressToGoogleFormat(location);
+                Address address = new Address();
+                address = tournament.Address;
+                address.Country = "USA";
+                string addressToConvert = ConvertAddressToGoogleFormat(address);
                 var geoLocate = GeoLocate(addressToConvert);
-                location.Longitude = geoLocate.results[0].geometry.location.lng;
-                location.Latitude = geoLocate.results[0].geometry.location.lat;
+                address.Longitude = geoLocate.results[0].geometry.location.lng;
+                address.Latitude = geoLocate.results[0].geometry.location.lat;
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -77,15 +80,7 @@ namespace FishingProject.Controllers
         //Get: Details of Tournament
         public ActionResult TournamentDetails(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tournament tournament = db.Tournaments.Find(id);
-            if (tournament == null)
-            {
-                return HttpNotFound();
-            }
+            var tournament = db.Tournaments.Include(t => t.Address).FirstOrDefault(t => t.TournamentId == id);
             return View(tournament);
         }
 
@@ -153,15 +148,16 @@ namespace FishingProject.Controllers
             return RedirectToAction("Index");
         }
 
-        public string ConvertAddressToGoogleFormat(Location location)
+        public string ConvertAddressToGoogleFormat(Address address)
         {
-            string googleFormatAddress = location.StreetAddress + "," + location.City + "," + location.State + "," + location.ZipCode + "," + location.Country;
+            string googleFormatAddress = address.StreetAddress + "," + address.City + "," + address.State + "," + address.ZipCode + "," + address.Country;
             return googleFormatAddress;
         }
 
         public GeoCode GeoLocate(string location)
         {
-            var requestUrl = $"https://maps.googleapis.com/maps/api/geocode/json?address={location}&key=AIzaSyCvNx58z28nAtRCUDGJU6xi2qisdrmE1dQ";
+            var key = Keys.GoogleGeoCodeAPIKey;
+            var requestUrl = $"https://maps.googleapis.com/maps/api/geocode/json?address={location}&key={key}";
             var result = new WebClient().DownloadString(requestUrl);
             GeoCode geocode = JsonConvert.DeserializeObject<GeoCode>(result);
             return geocode;
