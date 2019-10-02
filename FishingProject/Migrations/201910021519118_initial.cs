@@ -120,13 +120,25 @@ namespace FishingProject.Migrations
                         TournamentId = c.Int(nullable: false, identity: true),
                         TournamentName = c.String(),
                         TournamentDate = c.DateTime(),
+                        LakeId = c.Int(nullable: false),
                         OrganizationId = c.Int(nullable: false),
-                        Address_AddressId = c.Int(),
                     })
                 .PrimaryKey(t => t.TournamentId)
-                .ForeignKey("dbo.Addresses", t => t.Address_AddressId)
+                .ForeignKey("dbo.Lakes", t => t.LakeId, cascadeDelete: true)
                 .ForeignKey("dbo.Organizations", t => t.OrganizationId, cascadeDelete: true)
-                .Index(t => t.OrganizationId)
+                .Index(t => t.LakeId)
+                .Index(t => t.OrganizationId);
+            
+            CreateTable(
+                "dbo.Lakes",
+                c => new
+                    {
+                        LakeId = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Address_AddressId = c.Int(),
+                    })
+                .PrimaryKey(t => t.LakeId)
+                .ForeignKey("dbo.Addresses", t => t.Address_AddressId)
                 .Index(t => t.Address_AddressId);
             
             CreateTable(
@@ -168,7 +180,8 @@ namespace FishingProject.Migrations
             DropForeignKey("dbo.TournamentTeams", "TournamentId", "dbo.Tournaments");
             DropForeignKey("dbo.TournamentTeams", "TeamId", "dbo.Teams");
             DropForeignKey("dbo.Tournaments", "OrganizationId", "dbo.Organizations");
-            DropForeignKey("dbo.Tournaments", "Address_AddressId", "dbo.Addresses");
+            DropForeignKey("dbo.Tournaments", "LakeId", "dbo.Lakes");
+            DropForeignKey("dbo.Lakes", "Address_AddressId", "dbo.Addresses");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Participants", "TeamId", "dbo.Teams");
             DropForeignKey("dbo.Participants", "ApplicationId", "dbo.AspNetUsers");
@@ -178,8 +191,9 @@ namespace FishingProject.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.TournamentTeams", new[] { "TournamentId" });
             DropIndex("dbo.TournamentTeams", new[] { "TeamId" });
-            DropIndex("dbo.Tournaments", new[] { "Address_AddressId" });
+            DropIndex("dbo.Lakes", new[] { "Address_AddressId" });
             DropIndex("dbo.Tournaments", new[] { "OrganizationId" });
+            DropIndex("dbo.Tournaments", new[] { "LakeId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Participants", new[] { "ApplicationId" });
             DropIndex("dbo.Participants", new[] { "TeamId" });
@@ -191,6 +205,7 @@ namespace FishingProject.Migrations
             DropIndex("dbo.Organizations", new[] { "ApplicationId" });
             DropTable("dbo.TournamentTeams");
             DropTable("dbo.Addresses");
+            DropTable("dbo.Lakes");
             DropTable("dbo.Tournaments");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Teams");

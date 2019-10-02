@@ -176,15 +176,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910011944115_initial.cs" />
-    <Compile Include="Migrations\201910011944115_initial.Designer.cs">
-      <DependentUpon>201910011944115_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201910021519118_initial.cs" />
+    <Compile Include="Migrations\201910021519118_initial.Designer.cs">
+      <DependentUpon>201910021519118_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910021534166_updateLake.cs" />
+    <Compile Include="Migrations\201910021534166_updateLake.Designer.cs">
+      <DependentUpon>201910021534166_updateLake.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\GeoCode.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Lake.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Participant.cs" />
@@ -262,6 +267,7 @@
     <Content Include="Views\Participants\Create.cshtml" />
     <Content Include="Views\Participants\RegisterTeam.cshtml" />
     <Content Include="Views\Organizations\TournamentTable.cshtml" />
+    <Content Include="Views\Organizations\CreateLake.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,8 +286,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910011944115_initial.resx">
-      <DependentUpon>201910011944115_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910021519118_initial.resx">
+      <DependentUpon>201910021519118_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910021534166_updateLake.resx">
+      <DependentUpon>201910021534166_updateLake.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

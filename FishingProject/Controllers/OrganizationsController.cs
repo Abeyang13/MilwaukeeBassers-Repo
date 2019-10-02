@@ -41,7 +41,6 @@ namespace FishingProject.Controllers
             return View(organization);
         }
 
-
         // GET: Tournaments
         public ActionResult TournamentIndex()
         {
@@ -51,25 +50,19 @@ namespace FishingProject.Controllers
         public ActionResult CreateTournament()
         {
             Tournament tournament = new Tournament();
+            ViewBag.Lakes = new SelectList(db.Lakes.ToList(), "LakeId", "Name");
             return View(tournament); 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,Address,OrganizationId")] Tournament tournament)
+        public ActionResult CreateTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,LakeId,OrganizationId")] Tournament tournament)
         {
             if (ModelState.IsValid)
             {
                 var currentUserId = User.Identity.GetUserId();
                 Organization organization = db.Organizations.Where(o => o.ApplicationId == currentUserId).Single();
                 tournament.OrganizationId = organization.OrganizationId;
-                Address address = new Address();
-                address = tournament.Address;
-                address.Country = "USA";
-                string addressToConvert = ConvertAddressToGoogleFormat(address);
-                var geoLocate = GeoLocate(addressToConvert);
-                address.Longitude = geoLocate.results[0].geometry.location.lng;
-                address.Latitude = geoLocate.results[0].geometry.location.lat;
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,7 +73,7 @@ namespace FishingProject.Controllers
         //Get: Details of Tournament
         public ActionResult TournamentDetails(int? id)
         {
-            var tournament = db.Tournaments.Include(t => t.Address).FirstOrDefault(t => t.TournamentId == id);
+            var tournament = db.Tournaments.Include(t => t.Lake.Address).FirstOrDefault(t => t.TournamentId == id);
             return View(tournament);
         }
 
@@ -161,6 +154,32 @@ namespace FishingProject.Controllers
             var result = new WebClient().DownloadString(requestUrl);
             GeoCode geocode = JsonConvert.DeserializeObject<GeoCode>(result);
             return geocode;
+        }
+
+        public ActionResult CreateLake()
+        {
+            Lake lake = new Lake();
+            return View(lake);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateLake([Bind(Include = "LakeId,Name,Address")] Lake lake)
+        {
+            if (ModelState.IsValid)
+            {
+                Address address = new Address();
+                address = lake.Address;
+                address.Country = "USA";
+                string addressToConvert = ConvertAddressToGoogleFormat(address);
+                var geoLocate = GeoLocate(addressToConvert);
+                address.Longitude = geoLocate.results[0].geometry.location.lng;
+                address.Latitude = geoLocate.results[0].geometry.location.lat;
+                db.Lakes.Add(lake);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(lake);
         }
         protected override void Dispose(bool disposing)
         {

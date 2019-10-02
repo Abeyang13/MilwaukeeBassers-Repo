@@ -42,7 +42,7 @@
     <div id="map"></div>
     <script>
         function initMap() {
-            var location = { lat: @Html.DisplayFor(model => model.Address.Latitude), lng: @Html.DisplayFor(model => model.Address.Longitude) };
+            var location = { lat: @Html.DisplayFor(model => model.Lake.Address.Latitude), lng: @Html.DisplayFor(model => model.Lake.Address.Longitude) };
             var map = new google.maps.Map(
                 document.getElementById('map'), { zoom: 15, center: location });
             var marker = new google.maps.Marker({ position: location, map: map });
