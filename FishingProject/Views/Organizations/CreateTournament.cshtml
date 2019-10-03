@@ -33,7 +33,6 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Lake, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @*@Html.DropDownList("Name", ViewBag.Lakes as SelectList)*@
             @Html.DropDownListFor(model => model.LakeId, ViewBag.Lakes as SelectList)
         </div>
     </div>

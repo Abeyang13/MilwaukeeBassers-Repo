@@ -193,6 +193,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Participant.cs" />
+    <Compile Include="Models\ReportView.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\Tournament.cs" />
     <Compile Include="Models\TournamentTeam.cs" />
@@ -212,6 +213,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -268,6 +271,7 @@
     <Content Include="Views\Participants\RegisterTeam.cshtml" />
     <Content Include="Views\Organizations\TournamentTable.cshtml" />
     <Content Include="Views\Organizations\CreateLake.cshtml" />
+    <Content Include="Views\Home\TournamentTeamAmountChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

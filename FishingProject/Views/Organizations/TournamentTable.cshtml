@@ -4,6 +4,9 @@
 <table class="table">
     <tr>
         <th>
+            Place
+        </th>
+        <th>
             Team
         </th>
         <th>
@@ -17,10 +20,16 @@
         </th>
         <th></th>
     </tr>
-
+    @{
+        int i = 1;
+     }
     @foreach (var item in Model)
     {
+        
         <tr>
+            <td>
+                @i
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Team.TeamName)
             </td>
@@ -39,8 +48,8 @@
                 @Html.ActionLink("Delete", "Delete", new { id = item.TournamentTeamId })
             </td>
         </tr>
+        i++;
     }
-
 </table>
 
 @section Scripts {
