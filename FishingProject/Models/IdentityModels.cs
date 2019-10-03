@@ -26,6 +26,10 @@ namespace FishingProject.Models
         public DbSet<Team> Teams { get; set; }
         public DbSet<TournamentTeam> TournamentTeams { get; set; }
         public DbSet<Lake> Lakes { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<ProductOrder> ProductOrders { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

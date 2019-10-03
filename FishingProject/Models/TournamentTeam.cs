@@ -19,13 +19,12 @@ namespace FishingProject.Models
         [ForeignKey("Tournament")]
         public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
+
         [Display(Name = "Big Bass")]
         public double BigBass { get; set; }
         [Display(Name = "# Of Fishes")]
         public int NumberOfFishes { get; set; }
         [Display(Name = "Total Weight")]
         public double TotalWeight { get; set; }
-
-
     }
 }

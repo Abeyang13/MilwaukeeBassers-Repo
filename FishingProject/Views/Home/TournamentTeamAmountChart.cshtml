@@ -2,11 +2,10 @@
 @{
     var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.DimensionOne).ToList());
     var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Select(x => x.Quantity).ToList());
-    ViewData["Title"] = "TournamentTeamAmountChart";
+    ViewBag.Title = "TournamentTeamAmountChart";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <script src="~/Scripts/Chart.min.js"></script>
@@ -28,11 +27,13 @@
     <br />
     <h1 style="text-align:center; text-decoration:underline">Teams Per Tournament</h1>
     <br />
-        <center><div class="box-body" >
-        <div id="chart_container">
-            <canvas id="bar_chart" style="width:100%; height:500px; background-color:white"></canvas>
+    <center>
+        <div class="box-body">
+            <div id="chart_container">
+                <canvas id="bar_chart" style="width:100%; height:500px; background-color:white"></canvas>
+            </div>
         </div>
-        </div></center>
+    </center>
 </body>
 </html>
 <script type="text/javascript">
@@ -106,7 +107,6 @@ var options = {
                 options: options,
                 data: data,
                 type:'bar'
-
             });
         });
 </script>

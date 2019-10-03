@@ -191,8 +191,11 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Lake.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\Participant.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductOrder.cs" />
     <Compile Include="Models\ReportView.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\Tournament.cs" />
