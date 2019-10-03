@@ -272,6 +272,8 @@
     <Content Include="Views\Organizations\TournamentTable.cshtml" />
     <Content Include="Views\Organizations\CreateLake.cshtml" />
     <Content Include="Views\Home\TournamentTeamAmountChart.cshtml" />
+    <Content Include="Views\Home\AverageTeamWeightPerTeamChart.cshtml" />
+    <Content Include="Views\Home\AverageBigBassPerTournament.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

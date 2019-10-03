@@ -11,6 +11,6 @@ namespace FishingProject.Models
         [Key]
         public int ReportViewId { get; set; }
         public string DimensionOne { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
     }
 }
