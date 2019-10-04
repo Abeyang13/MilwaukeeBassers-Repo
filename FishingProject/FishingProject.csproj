@@ -184,6 +184,10 @@
     <Compile Include="Migrations\201910021534166_updateLake.Designer.cs">
       <DependentUpon>201910021534166_updateLake.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910032138464_marketmodels.cs" />
+    <Compile Include="Migrations\201910032138464_marketmodels.Designer.cs">
+      <DependentUpon>201910032138464_marketmodels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -209,6 +213,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\image\blacklongsleeve.jpg" />
+    <Content Include="Content\image\blackshirt.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -277,6 +283,8 @@
     <Content Include="Views\Home\TournamentTeamAmountChart.cshtml" />
     <Content Include="Views\Home\AverageTeamWeightPerTeamChart.cshtml" />
     <Content Include="Views\Home\AverageBigBassPerTournament.cshtml" />
+    <Content Include="Views\Organizations\CreateProduct.cshtml" />
+    <Content Include="Views\Organizations\Merchandise.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -300,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910021534166_updateLake.resx">
       <DependentUpon>201910021534166_updateLake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910032138464_marketmodels.resx">
+      <DependentUpon>201910032138464_marketmodels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

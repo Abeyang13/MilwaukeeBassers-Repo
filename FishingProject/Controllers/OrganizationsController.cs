@@ -181,6 +181,32 @@ namespace FishingProject.Controllers
             }
             return View(lake);
         }
+
+        public ActionResult CreateProduct()
+        {
+            Product product = new Product();
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateProduct([Bind(Include = "ProductId,Name,Price,Quantity,Size")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(product);
+        }
+
+        public ActionResult Merchandise()
+        {
+            var products = db.Products.ToList();
+            return View(products);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -189,6 +215,5 @@ namespace FishingProject.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
 }

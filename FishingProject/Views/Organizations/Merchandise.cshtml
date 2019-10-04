@@ -1,0 +1,111 @@
+﻿@using FishingProject.Models
+@model IEnumerable<FishingProject.Models.Product>
+
+@{
+    ViewBag.Title = "Merchandise";
+}
+
+<h2>Merchandise</h2>
+<br />
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    foreach (var item in Model)
+    {
+        if (item.ProductId == 1)
+        {
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-10">
+            <img src="~/Content/image/blackshirt.jpg" width="200" height="200"/>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => item.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => item.Price)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(modelItem => item.Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(modelItem => item.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add To Cart" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+        }
+        else if (item.ProductId == 2)
+        {
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-10">
+            <img src="~/Content/image/blacklongsleeve.jpg" width="200" height="200"/>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => item.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => item.Price)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(modelItem => item.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(modelItem => item.Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => item.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(modelItem => item.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add To Cart" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+        }
+        
+ <br />
+<br />
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
