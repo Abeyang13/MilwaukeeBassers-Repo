@@ -24,13 +24,6 @@ namespace FishingProject.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
         public ActionResult TournamentTeamAmountChart()
         {
             var tournaments = db.Tournaments.ToList();
@@ -91,6 +84,36 @@ namespace FishingProject.Controllers
                 });
             }
             return View(averageBigBass);
+        }
+
+        [HttpGet]
+        public ViewResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contact(ContactFormModel model, EmailAddress information)
+        {
+            if (ModelState.IsValid)
+            {
+                MailKitEmailService emailService = new MailKitEmailService(new EmailServerConfiguration());
+                EmailMessage msgToSend = new EmailMessage
+                {
+                    FromAddresses = new List<ContactFormModel> { model },
+                    ToAddresses = new List<EmailAddress> { information },
+                    Content = $"Message From {model.Name} \n" +
+                    $"Email: {model.Email} \n" + $"Message: {model.Message}",
+                    Subject = "Contact Form"
+                };
+
+                emailService.Send(msgToSend);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return Contact();
+            }
         }
     }
 }

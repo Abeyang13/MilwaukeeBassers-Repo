@@ -1,17 +1,30 @@
-﻿@{
+﻿@model FishingProject.Models.ContactFormModel
+
+@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<br />
+<br />
+<h3 style="text-decoration: underline">CONTACT FORM</h3>
+<br />
+<form action="Contact" method="post" onsubmit="buttonSubmit()">
+    <fieldset>
+        <div class="form-group">
+            <input type="text" name="Name" class="form-control" placeholder="Enter Name" style="width:50%" />
+        </div>
+        <div class="form-group">
+            <input type="text" name="Email" class="form-control" placeholder="Enter Email" style="width:50%" />
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" rows="3" name="Message" style="width:50%" placeholder="Enter Message Here"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <script>
+            function buttonSubmit() {
+                alert("Message Sent!");
+            }
+        </script>
+    </fieldset>
+</form>
