@@ -201,12 +201,37 @@ namespace FishingProject.Controllers
             return View(product);
         }
 
+        //GET List Of All Products
         public ActionResult Merchandise()
         {
             var products = db.Products.ToList();
             return View(products);
         }
+        [HttpGet]
+        public ActionResult CreateOrder(int id)
+        {
+            ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
+            var products = db.Products.FirstOrDefault(p => p.ProductId == id);
+            return View(productOrderViewModel);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateOrder(ProductOrderViewModel productOrderViewModel)
+        {
+            var currentUserId = User.Identity.GetUserId();
+            Participant participant = db.Participants.Where(p => p.ApplicationId == currentUserId).Single();
+            productOrderViewModel.Order.ParticipantId = participant.ParticipantId;
+            db.Orders.Add(productOrderViewModel.Order);
+            db.SaveChanges();
+
+            ProductOrder productOrder = new ProductOrder();
+            productOrder.OrderId = productOrderViewModel.Order.OrderId;
+            productOrder.ProductId = productOrderViewModel.Product.ProductId;
+            db.ProductOrders.Add(productOrder);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

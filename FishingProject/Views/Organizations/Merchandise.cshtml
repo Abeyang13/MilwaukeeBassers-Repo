@@ -8,7 +8,7 @@
 <h2>Merchandise</h2>
 <br />
 <br />
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateOrder", "Organizations", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -50,7 +50,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Add To Cart" class="btn btn-default" />
+            <input type="submit" value="Add To Cart" class="btn btn-default" onclick="location.href='@Url.Action("CreateOrder", "Organizations", new { id=item.ProductId })'"/>
         </div>
     </div>
 </div>
@@ -91,13 +91,13 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Add To Cart" class="btn btn-default" />
+            <input type="submit" value="Add To Cart" class="btn btn-default" onclick="location.href='@Url.Action("CreateOrder", "Organization", new { id=item.ProductId })'" />
         </div>
     </div>
 </div>
         }
         
- <br />
+<br />
 <br />
     }
 }

@@ -10,7 +10,7 @@ namespace FishingProject.Models
     public class ProductOrder
     {
         [Key]
-        public int TournamentTeamId { get; set; }
+        public int ProductOrderId { get; set; }
 
         [ForeignKey("Product")]
         public int ProductId { get; set; }

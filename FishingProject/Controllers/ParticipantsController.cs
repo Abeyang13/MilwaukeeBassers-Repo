@@ -132,7 +132,14 @@ namespace FishingProject.Controllers
         {
                 var currentUserId = User.Identity.GetUserId();
                 Participant participant = db.Participants.Where(p => p.ApplicationId == currentUserId).Single();
-                participant.TeamId = teamViewModels.Team.TeamId;
+                if(participant.TeamId == null)
+                {
+                    participant.TeamId = teamViewModels.Team.TeamId;
+                }
+                else
+                {
+                teamViewModels.Team.TeamId = participant.TeamId.Value;
+                }
                 db.Teams.Add(teamViewModels.Team);
                 db.SaveChanges();
 

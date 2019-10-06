@@ -11,10 +11,10 @@ namespace FishingProject.Models
     {
         [Key]
         public int OrderId { get; set; }
-        public bool OrderPending { get; set; }
+        public decimal Total { get; set; }
 
-        [ForeignKey("Organization")]
-        public int OrganizationId { get; set; }
-        public Organization Organization { get; set; }
+        [ForeignKey("Participant")]
+        public int ParticipantId { get; set; }
+        public Participant Participant { get; set; }
     }
 }
