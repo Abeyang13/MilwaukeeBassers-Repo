@@ -1,10 +1,13 @@
 ﻿using FishingProject.Models;
 using Microsoft.AspNet.Identity;
+using Stripe;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -149,6 +152,44 @@ namespace FishingProject.Controllers
                 db.TournamentTeams.Add(tournamentTeam);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+        }
+
+        public ActionResult Payment()
+        {
+            var currentUserId = User.Identity.GetUserId(); ClaimTypes.NameIdentifier.ToString();
+            var participant = db.Participants.FirstOrDefault(p => p.ApplicationId == currentUserId);
+            return View(participant);
+        }
+
+        [HttpPost]
+        public ActionResult Charge(string stripeEmail, string stripeToken, Models.Order order)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+
+            var currentUserId = User.Identity.GetUserId();  ClaimTypes.NameIdentifier.ToString();
+            var participant = db.Participants.FirstOrDefault(p => p.ApplicationId == currentUserId);
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = Convert.ToInt64(order.Total),
+                Description = "Sample Charge",
+                Currency = "usd",
+                CustomerId = customer.Id
+            });
+            return View();
+        }
+
+        public ActionResult StripeIndex()
+        {
+            var stripePublishKey = ConfigurationManager.AppSettings["stripePublishableKey"];
+            ViewBag.StripePublishKey = stripePublishKey;
+            return View();
         }
 
         protected override void Dispose(bool disposing)

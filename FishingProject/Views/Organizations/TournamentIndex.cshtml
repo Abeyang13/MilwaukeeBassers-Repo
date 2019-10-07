@@ -5,8 +5,8 @@
 }
 <br />
 <br />
-<u><h2>List Of Tournaments</h2></u>
-
+<h2 style="text-decoration: underline">List Of Tournaments</h2>
+<h5>Please Log In To Register For Tournament</h5>
 <table class="table table-striped table-hover">
     <thead>
     <tr class="info">
@@ -36,7 +36,14 @@
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTable", "Organizations", new { id = item.TournamentId })'">Tournament Table</button> |
             @if (item.TournamentDate > DateTime.Now)
             {
-                <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("RegisterTeam", "Participants", new { id = item.TournamentId })'">Register</button>
+                if (this.User.IsInRole("Participant"))
+                {
+                    <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("RegisterTeam", "Participants", new { id = item.TournamentId })'">Register</button>
+                }
+                else
+                {
+                    <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("Login", "Account")'">Register</button>
+                }
             }
             else
             {

@@ -55,8 +55,12 @@
     <Reference Include="MimeKit, Version=2.3.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
       <HintPath>..\packages\MimeKit.2.3.1\lib\net47\MimeKit.dll</HintPath>
     </Reference>
+    <Reference Include="Stripe.net, Version=29.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stripe.net.29.6.0\lib\net45\Stripe.net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -298,6 +302,7 @@
     <Content Include="Views\Organizations\Merchandise.cshtml" />
     <Content Include="Views\Organizations\EditTournamentTeam.cshtml" />
     <Content Include="Views\Organizations\DeleteTeam.cshtml" />
+    <Content Include="Views\Participants\Payment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

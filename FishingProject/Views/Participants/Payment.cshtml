@@ -1,0 +1,28 @@
+﻿@model FishingProject.Models.Order
+@using System.Globalization
+@{
+    ViewData["Title"] = "Payment";
+}
+<br />
+<br />
+<h1 style="text-align:center; text-decoration:underline">Payment Portal</h1>
+<br />
+<br />
+<h4>Click the pay with card button to make your payment</h4>
+<br />
+<br />
+<form action="/Residents/Charge" method="POST">
+    @{
+        var balance = Model.Total * 1;
+    }
+    <article>
+        <label>Amount: @balance.ToString("C", CultureInfo.CurrentCulture)</label>
+    </article>
+    <script src="//checkout.stripe.com/v2/checkout.js"
+            class="stripe-button"
+            data-key="@Keys.PublishableKey"
+            data-locale="auto"
+            data-description="Sample Charge"
+            data-amount="">
+    </script>
+</form>
