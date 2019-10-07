@@ -1,0 +1,67 @@
+﻿@model FishingProject.Models.TournamentTeam
+
+@{
+    ViewBag.Title = "DeleteTeam";
+}
+
+<h2>DeleteTeam</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.TournamentTeamId)
+    @Html.HiddenFor(model => model.Tournament.TournamentId)
+    @Html.HiddenFor(model => model.Team.TeamId)
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.TeamName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.TeamName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tournament.TournamentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tournament.TournamentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BigBass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BigBass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfFishes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfFishes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalWeight)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalWeight)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+<div class="form-actions no-color">
+    <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("ConfirmDeleteTeam", "Organizations", new { id = Model.TournamentTeamId })'">Delete</button>  |
+    @Html.ActionLink("Back to List", "TournamentTable", "Organizations")
+</div>
+    }
+</div>

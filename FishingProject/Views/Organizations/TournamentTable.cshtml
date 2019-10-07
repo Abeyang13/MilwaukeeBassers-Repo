@@ -42,10 +42,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TotalWeight)
             </td>
+            @if (this.User.IsInRole("Organization"))
+            {
             <td>
                 @Html.ActionLink("EditTournamentTeam", "EditTournamentTeam", new { id = item.TournamentTeamId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TournamentTeamId })
+                @Html.ActionLink("Delete Team", "DeleteTeam", new { id = item.TournamentTeamId })
             </td>
+            }
         </tr>
         i++;
     }

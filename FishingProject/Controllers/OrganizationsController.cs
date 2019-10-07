@@ -117,28 +117,28 @@ namespace FishingProject.Controllers
         
         // GET: Teams/Delete
         public ActionResult DeleteTeam(int? id)
-        {
+     {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TournamentTeam team = db.TournamentTeams.Find(id);
-            if (team == null)
+            TournamentTeam tournamentTeam = db.TournamentTeams.Find(id);
+            if (tournamentTeam == null)
             {
                 return HttpNotFound();
             }
-            return View(team);
+            return View(tournamentTeam);
         }
 
         // POST: Teams/Delete
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteTeam(int id)
+        public ActionResult ConfirmDeleteTeam(TournamentTeam tournamentTeam)
         {
-            TournamentTeam team = db.TournamentTeams.Find(id);
-            db.TournamentTeams.Remove(team);
+            var tournamentTeamId = db.TournamentTeams.Find(tournamentTeam.TournamentTeamId);
+            db.TournamentTeams.Remove(tournamentTeamId);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("TournamentTable");
         }
 
         public string ConvertAddressToGoogleFormat(Address address)
