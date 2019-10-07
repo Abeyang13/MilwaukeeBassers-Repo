@@ -224,6 +224,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\image\blacklongsleeve.jpg" />
     <Content Include="Content\image\blackshirt.jpg" />
+    <Content Include="Content\image\milwaukeebassers.png" />
+    <Content Include="Content\image\milwaukeeimage.jpg.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -294,6 +296,7 @@
     <Content Include="Views\Home\AverageBigBassPerTournament.cshtml" />
     <Content Include="Views\Organizations\CreateProduct.cshtml" />
     <Content Include="Views\Organizations\Merchandise.cshtml" />
+    <Content Include="Views\Organizations\EditTournamentTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

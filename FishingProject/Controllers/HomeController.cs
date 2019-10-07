@@ -30,7 +30,7 @@ namespace FishingProject.Controllers
             var allTeams = new List<ReportView>();
             foreach (Tournament tournament in tournaments)
             {
-                var teams = db.TournamentTeams.Include(t => t.Team).Where(t => t.TournamentId == tournament.TournamentId);
+                var teams = db.TournamentTeams.Include(t => t.Team).Where(t => t.TournamentId == tournament.TournamentId && t.Tournament.TournamentDate < DateTime.Now);
                 allTeams.Add(new ReportView
                 {
                     DimensionOne = tournament.TournamentName,
@@ -47,7 +47,7 @@ namespace FishingProject.Controllers
             
             foreach (Tournament tournament in tournaments)
             {
-                List<double> weights = db.TournamentTeams.Where(t => t.TournamentId == tournament.TournamentId).Select(t => t.TotalWeight).ToList();
+                List<double> weights = db.TournamentTeams.Where(t => t.TournamentId == tournament.TournamentId && t.Tournament.TournamentDate < DateTime.Now).Select(t => t.TotalWeight).ToList();
                 double average = 0;
                 foreach (double weight in weights)
                 {
@@ -70,7 +70,7 @@ namespace FishingProject.Controllers
 
             foreach (Tournament tournament in tournaments)
             {
-                List<double> bigBass = db.TournamentTeams.Where(t => t.TournamentId == tournament.TournamentId).Select(t => t.BigBass).ToList();
+                List<double> bigBass = db.TournamentTeams.Where(t => t.TournamentId == tournament.TournamentId && t.Tournament.TournamentDate < DateTime.Now).Select(t => t.BigBass).ToList();
                 double average = 0;
                 foreach (double big in bigBass)
                 {

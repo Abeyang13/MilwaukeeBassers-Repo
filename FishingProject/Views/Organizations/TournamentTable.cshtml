@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<FishingProject.Models.TournamentTeam>
 
-<h2>Teams In Tournament</h2>
+<u><h2>Teams In Tournament</h2></u>
 <table class="table">
     <tr>
         <th>
@@ -43,8 +43,7 @@
                 @Html.DisplayFor(modelItem => item.TotalWeight)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TournamentTeamId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TournamentTeamId }) |
+                @Html.ActionLink("EditTournamentTeam", "EditTournamentTeam", new { id = item.TournamentTeamId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.TournamentTeamId })
             </td>
         </tr>

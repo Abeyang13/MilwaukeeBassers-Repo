@@ -21,12 +21,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Tournament Rules", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Tournaments", "TournamentIndex", "Organizations")</li>
-                    <li>@Html.ActionLink("AverageTeamsPerLakeChart", "TournamentTeamAmountChart", "Home")</li>
-                    <li>@Html.ActionLink("AverageTotalWeightChart", "AverageTeamWeightPerTeamChart", "Home")</li>
-                    <li>@Html.ActionLink("AverageBigBassChart", "AverageBigBassPerTournament", "Home")</li>
                     <li>@Html.ActionLink("Merchandise", "Merchandise", "Organizations")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")

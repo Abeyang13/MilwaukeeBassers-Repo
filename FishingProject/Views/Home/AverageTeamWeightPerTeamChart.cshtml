@@ -9,10 +9,7 @@
 
 <html>
 <head>
-    <script src="~/Scripts/Chart.min.js"></script>
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         #chart_container {
             width: 400px;
@@ -37,6 +34,11 @@
     </center>
 </body>
 </html>
+
+<script src="~/Scripts/Chart.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
 <script type="text/javascript">
 
         $(function () {
@@ -112,3 +114,11 @@ var options = {
             });
         });
 </script>
+
+<p>
+    @Html.ActionLink("Back to List", "TournamentIndex", "Organizations")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

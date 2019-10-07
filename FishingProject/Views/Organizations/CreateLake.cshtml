@@ -6,8 +6,8 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Lake</h4>
-        <hr />
+        <u><h2>Input Lake Information</h2></u>
+        <br />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -47,14 +47,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Home")
 </div>
 
 @section Scripts {

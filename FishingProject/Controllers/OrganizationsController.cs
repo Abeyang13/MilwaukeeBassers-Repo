@@ -44,7 +44,7 @@ namespace FishingProject.Controllers
         // GET: Tournaments
         public ActionResult TournamentIndex()
         {
-            var tournaments = db.Tournaments.ToList();
+            var tournaments = db.Tournaments.ToList().OrderByDescending(t => t.TournamentDate);
             return View(tournaments);
         }
         public ActionResult CreateTournament()
@@ -78,18 +78,18 @@ namespace FishingProject.Controllers
         }
 
         // GET: Tournament/Edit/5
-        public ActionResult EditTournament(int? id)
+        public ActionResult EditTournamentTeam(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Tournament tournament = db.Tournaments.Find(id);
-            if (tournament == null)
+            TournamentTeam tournamentTeam = db.TournamentTeams.Find(id);
+            if (tournamentTeam == null)
             {
                 return HttpNotFound();
             }
-            return View(tournament);
+            return View(tournamentTeam);
         }
 
         // POST: Tournament/Edit/5
@@ -97,15 +97,15 @@ namespace FishingProject.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditTournament([Bind(Include = "TournamentId,TournamentName,TournamentDate,OrganizationId")] Tournament tournament)
+        public ActionResult EditTournamentTeam(TournamentTeam tournamentTeam)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(tournament).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(tournament);
+            var tournamentTeamId = db.TournamentTeams.Include(t => t.Team).Include(t => t.Tournament).Where(t => t.TournamentTeamId == tournamentTeam.TournamentTeamId).Single();
+            tournamentTeamId.TotalWeight = tournamentTeam.TotalWeight;
+            tournamentTeamId.BigBass = tournamentTeam.BigBass;
+            tournamentTeamId.NumberOfFishes = tournamentTeam.NumberOfFishes;
+            db.Entry(tournamentTeamId).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("TournamentTable");
         }
 
         //GET: List of tournament teams
