@@ -12,6 +12,7 @@ namespace FishingProject.Models
         [Key]
         public int OrderId { get; set; }
         public decimal Total { get; set; }
+        public bool PendingOrder { get; set; }
 
         [ForeignKey("Participant")]
         public int ParticipantId { get; set; }

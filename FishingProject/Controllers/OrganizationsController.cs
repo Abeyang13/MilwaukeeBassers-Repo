@@ -212,6 +212,7 @@ namespace FishingProject.Controllers
         {
             ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
             var products = db.Products.FirstOrDefault(p => p.ProductId == id);
+            productOrderViewModel.Product.ProductId = products.ProductId;
             return View(productOrderViewModel);
         }
 

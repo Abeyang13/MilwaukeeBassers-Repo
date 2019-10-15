@@ -162,7 +162,7 @@ namespace FishingProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult Charge(string stripeEmail, string stripeToken, Models.Order order)
+        public ActionResult Charge(string stripeEmail, string stripeToken)
         {
             var customers = new CustomerService();
             var charges = new ChargeService();
@@ -177,7 +177,7 @@ namespace FishingProject.Controllers
 
             var charge = charges.Create(new ChargeCreateOptions
             {
-                Amount = Convert.ToInt64(order.Total),
+                Amount = Convert.ToInt64(participant),
                 Description = "Sample Charge",
                 Currency = "usd",
                 CustomerId = customer.Id
@@ -187,7 +187,7 @@ namespace FishingProject.Controllers
 
         public ActionResult StripeIndex()
         {
-            var stripePublishKey = ConfigurationManager.AppSettings["stripePublishableKey"];
+            var stripePublishKey = ConfigurationManager.AppSettings["pk_test_QOLbdMxprQI9OEAV5gkjkV7R004Gpa0nb5"];
             ViewBag.StripePublishKey = stripePublishKey;
             return View();
         }

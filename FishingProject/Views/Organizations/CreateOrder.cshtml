@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FishingProject.Models.ProductOrderViewModel>
+
+<h2>Cart</h2>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Product.Name)</th>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Product.Price)</th>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Product.Quantity)</th>
+    </tr>
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.Product.Size)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Product.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Product.Price)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Product.Quantity)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Product.Size)
+    </td>
+</tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Keep Shopping", "Merchandise", "Organizations")
+</p>
