@@ -33,8 +33,12 @@
     </dl>
 </div>
 <br/>
+<!DOCTYPE html>
 <html>
 <head>
+    <title>Lake Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
     <style>
         #map {
             width: 100%;
@@ -55,15 +59,10 @@
             var marker = new google.maps.Marker({ position: location, map: map });
         }
     </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=@Keys.GoogleGeoCodeAPIKey&callback=initMap">
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@Keys.GoogleGeoCodeAPIKey&callback=initMap" async defer></script>
 </body>
 </html>
 <p>
     @Html.ActionLink("Back to List", "TournamentIndex")
 </p>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

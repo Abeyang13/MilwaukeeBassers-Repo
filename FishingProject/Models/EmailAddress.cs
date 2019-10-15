@@ -8,6 +8,6 @@ namespace FishingProject.Models
     public class EmailAddress
     {
         public string Name = "Milwaukee Bassers";
-        public string Address = "spartanaceyang@yahoo.com";
+        public string Address = Keys.Email;
     }
 }

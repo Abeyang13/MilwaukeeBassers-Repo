@@ -6,7 +6,7 @@
 <br />
 <br />
 <h2 style="text-decoration: underline">List Of Tournaments</h2>
-<h5>Please Log In To Register For Tournament</h5>
+<h5>*Please Log In To Register For Tournament</h5>
 <table class="table table-striped table-hover">
     <thead>
     <tr class="info">
@@ -29,11 +29,11 @@
             @Html.DisplayFor(modelItem => item.TournamentDate)
         </td>
         <td>
-            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("AverageBigBassPerTournament", "Home", new { id = item.TournamentId })'">Average BigBass</button> |
+            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("AverageBigBassPerTournament", "Home", new { id = item.TournamentId })'">Average Big Bass</button> |
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("AverageTeamWeightPerTeamChart", "Home", new { id = item.TournamentId })'">Average Team Weight</button> |
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTeamAmountChart", "Home", new { id = item.TournamentId })'">Average Team Per Tournament</button> |
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentDetails", "Organizations", new { id = item.TournamentId })'">Tournament Details</button> |
-            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTable", "Organizations", new { id = item.TournamentId })'">Tournament Table</button> |
+            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTable", "Organizations", new { id = item.TournamentId })'">Teams</button> |
             @if (item.TournamentDate > DateTime.Now)
             {
                 if (this.User.IsInRole("Participant"))

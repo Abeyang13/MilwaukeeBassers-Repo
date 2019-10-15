@@ -13,7 +13,7 @@ namespace FishingProject.Models
         }
         public string SmtpServer = "smtp.gmail.com";
         public int SmtpPort { get; }
-        public string SmtpUsername = "devcodecampsweepstakes@gmail.com";
+        public string SmtpUsername = Keys.UserName;
         public string SmtpPassword = Keys.EmailServerPassword;
     }
 }

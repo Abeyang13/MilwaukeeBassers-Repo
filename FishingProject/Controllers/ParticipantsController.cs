@@ -151,7 +151,7 @@ namespace FishingProject.Controllers
                 tournamentTeam.TournamentId = teamViewModels.Tournament.TournamentId;
                 db.TournamentTeams.Add(tournamentTeam);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("TournamentIndex", "Organizations");
         }
 
         public ActionResult Payment()

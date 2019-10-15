@@ -65,7 +65,7 @@ namespace FishingProject.Controllers
                 tournament.OrganizationId = organization.OrganizationId;
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("TournamentIndex");
             }
             return View(tournament);
         }
@@ -105,7 +105,7 @@ namespace FishingProject.Controllers
             tournamentTeamId.NumberOfFishes = tournamentTeam.NumberOfFishes;
             db.Entry(tournamentTeamId).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("TournamentTable");
+            return RedirectToAction("TournamentTable", new { id = tournamentTeamId.TournamentId });
         }
 
         //GET: List of tournament teams
@@ -147,10 +147,10 @@ namespace FishingProject.Controllers
             return googleFormatAddress;
         }
 
-        public GeoCode GeoLocate(string location)
+        public GeoCode GeoLocate(string address)
         {
             var key = Keys.GoogleGeoCodeAPIKey;
-            var requestUrl = $"https://maps.googleapis.com/maps/api/geocode/json?address={location}&key={key}";
+            var requestUrl = $"https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={key}";
             var result = new WebClient().DownloadString(requestUrl);
             GeoCode geocode = JsonConvert.DeserializeObject<GeoCode>(result);
             return geocode;
@@ -177,7 +177,7 @@ namespace FishingProject.Controllers
                 address.Latitude = geoLocate.results[0].geometry.location.lat;
                 db.Lakes.Add(lake);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("TournamentIndex");
             }
             return View(lake);
         }
@@ -196,7 +196,7 @@ namespace FishingProject.Controllers
             {
                 db.Products.Add(product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Merchandise");
             }
             return View(product);
         }
