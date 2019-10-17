@@ -207,18 +207,42 @@ namespace FishingProject.Controllers
             var products = db.Products.ToList();
             return View(products);
         }
-        [HttpGet]
-        public ActionResult CreateOrder(int id)
+        //ADD Order If Order Is Not Pending/Else ADD Product To Existing Order
+        public ActionResult AddOrder(ProductOrderViewModel productOrderViewModel)
+        {
+            if(productOrderViewModel.Order.PendingOrder == false)
+            {
+                Order newOrder = new Order();
+                var newCustomer = User.Identity.GetUserId();
+                Participant participant = db.Participants.Where(p => p.ApplicationId == newCustomer).Single();
+                newOrder.ParticipantId = participant.ParticipantId;
+                newOrder.Total = productOrderViewModel.Product.Price * productOrderViewModel.Product.Quantity;
+                newOrder.PendingOrder = true;
+                db.Orders.Add(newOrder);
+                db.SaveChanges();
+            }
+            else if(productOrderViewModel.Order.PendingOrder == true)
+            {
+
+            }
+            return RedirectToAction("Merchandise");
+        }
+        public ActionResult ViewOrder(int id)
         {
             ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
-            var products = db.Products.FirstOrDefault(p => p.ProductId == id);
-            productOrderViewModel.Product.ProductId = products.ProductId;
-            return View(productOrderViewModel);
+            productOrderViewModel.Order.OrderId = id;
+
+            return View();
         }
 
+
+
+
+
+        //Submit Order After Customer/Participant Has Paid For Order
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateOrder(ProductOrderViewModel productOrderViewModel)
+        public ActionResult SubmitOrder(ProductOrderViewModel productOrderViewModel)
         {
             var currentUserId = User.Identity.GetUserId();
             Participant participant = db.Participants.Where(p => p.ApplicationId == currentUserId).Single();

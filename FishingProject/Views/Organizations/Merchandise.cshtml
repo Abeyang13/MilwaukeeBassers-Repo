@@ -1,5 +1,5 @@
 ﻿@using FishingProject.Models
-@model IEnumerable<FishingProject.Models.Product>
+@model IEnumerable<FishingProject.Models.ProductOrderViewModel>
 
 @{
     ViewBag.Title = "Merchandise";
@@ -7,7 +7,7 @@
 
 <u><h2>Merchandise</h2></u>
 <br />
-@using (Html.BeginForm("CreateOrder", "Organizations", FormMethod.Post))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -49,7 +49,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add To Cart" class="btn btn-primary" onclick="location.href='@Url.Action("CreateOrder", "Organizations", new { id=item.ProductId })'" />
+                        <input type="submit" value="Add To Cart" class="btn btn-primary" onclick="location.href='@Url.Action("AddOrder", "Organizations", new { id=item.ProductId })'" />
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add To Cart" class="btn btn-primary" onclick="location.href='@Url.Action("CreateOrder", "Organization", new { id=item.ProductId })'" />
+                        <input type="submit" value="Add To Cart" class="btn btn-primary" onclick="location.href='@Url.Action("AddOrder", "Organizations", new { id=item.ProductId })'" />
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
         <br />
     }
     <div>
-        <input type="submit" value="See Cart" class="btn btn-primary" onclick="location.href='@Url.Action("CreateOrder", "Participants")'" />
+        <input type="submit" value="View Order" class="btn btn-primary" onclick="location.href='@Url.Action("ViewOrder", "Organizations")'" />
     </div>
 }
 

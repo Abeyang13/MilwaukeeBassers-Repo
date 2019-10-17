@@ -307,7 +307,6 @@
     <Content Include="Views\Organizations\EditTournamentTeam.cshtml" />
     <Content Include="Views\Organizations\DeleteTeam.cshtml" />
     <Content Include="Views\Participants\Payment.cshtml" />
-    <Content Include="Views\Organizations\CreateOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
