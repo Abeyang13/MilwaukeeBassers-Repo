@@ -204,40 +204,42 @@ namespace FishingProject.Controllers
         //GET List Of All Products
         public ActionResult Merchandise()
         {
-            var products = db.Products.ToList();
-            return View(products);
+            ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
+            productOrderViewModel.Product = db.Products.ToList();
+            return View(productOrderViewModel);
         }
         //ADD Order If Order Is Not Pending/Else ADD Product To Existing Order
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddOrder(ProductOrderViewModel productOrderViewModel)
         {
             if(productOrderViewModel.Order.PendingOrder == false)
             {
-                Order newOrder = new Order();
+                var newOrder = new Order();
                 var newCustomer = User.Identity.GetUserId();
                 Participant participant = db.Participants.Where(p => p.ApplicationId == newCustomer).Single();
                 newOrder.ParticipantId = participant.ParticipantId;
-                newOrder.Total = productOrderViewModel.Product.Price * productOrderViewModel.Product.Quantity;
+                //newOrder.Total = productOrderViewModel.Product.Where()
                 newOrder.PendingOrder = true;
                 db.Orders.Add(newOrder);
                 db.SaveChanges();
+
+                ProductOrder productOrder = new ProductOrder();
             }
             else if(productOrderViewModel.Order.PendingOrder == true)
             {
-
+                
             }
             return RedirectToAction("Merchandise");
         }
-        public ActionResult ViewOrder(int id)
+        //GET Order That Contains All Products For That Order
+        public ActionResult ViewOrder()
         {
-            ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
-            productOrderViewModel.Order.OrderId = id;
-
-            return View();
+            var currentCustomer = User.Identity.GetUserId();
+            var customer = db.Participants.Where(p => p.ApplicationId == currentCustomer).Single();
+            var order = db.ProductOrders.Where(p => p.Order.ParticipantId == customer.ParticipantId).Include(p => p.ProductId);
+            return View(order);
         }
-
-
-
-
 
         //Submit Order After Customer/Participant Has Paid For Order
         [HttpPost]
@@ -252,7 +254,7 @@ namespace FishingProject.Controllers
 
             ProductOrder productOrder = new ProductOrder();
             productOrder.OrderId = productOrderViewModel.Order.OrderId;
-            productOrder.ProductId = productOrderViewModel.Product.ProductId;
+            //productOrder.ProductId = productOrderViewModel.Product.ProductId;
             db.ProductOrders.Add(productOrder);
             db.SaveChanges();
             return RedirectToAction("Index");
