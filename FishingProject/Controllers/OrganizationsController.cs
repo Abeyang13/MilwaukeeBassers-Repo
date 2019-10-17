@@ -252,27 +252,21 @@ namespace FishingProject.Controllers
             var currentCustomer = User.Identity.GetUserId();
             var customer = db.Participants.Where(p => p.ApplicationId == currentCustomer).Single();
             var order = db.ProductOrders.Include(p => p.Product).Where(p => p.Order.ParticipantId == customer.ParticipantId).ToList();
+            decimal total = 0;
+            foreach (var product in order)
+            {
+                total += product.Total;
+            }
+            ViewBag.Total = total;
             return View(order);
         }
 
-  /*      //Submit Order After Customer/Participant Has Paid For Order
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SubmitOrder(ProductOrderViewModel productOrderViewModel)
+        //Get All Orders
+        public ActionResult ViewAllOrders()
         {
-            var currentUserId = User.Identity.GetUserId();
-            Participant participant = db.Participants.Where(p => p.ApplicationId == currentUserId).Single();
-            productOrderViewModel.Order.ParticipantId = participant.ParticipantId;
-            db.Orders.Add(productOrderViewModel.Order);
-            db.SaveChanges();
-
-            ProductOrder productOrder = new ProductOrder();
-            productOrder.OrderId = productOrderViewModel.Order.OrderId;
-            //productOrder.ProductId = productOrderViewModel.Product.ProductId;
-            db.ProductOrders.Add(productOrder);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }*/
+            var orders = db.ProductOrders.Include(p => p.Product).Where(p => p.Paid == true).ToList();
+            return View(orders);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

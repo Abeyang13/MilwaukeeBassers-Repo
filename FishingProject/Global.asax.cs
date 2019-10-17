@@ -19,7 +19,6 @@ namespace FishingProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            StripeConfiguration.SetApiKey(ConfigurationManager.AppSettings["stripeSecretKey"]);
         }
     }
 }

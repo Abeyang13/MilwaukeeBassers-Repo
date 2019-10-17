@@ -154,40 +154,51 @@ namespace FishingProject.Controllers
                 return RedirectToAction("TournamentIndex", "Organizations");
         }
 
-        public ActionResult Payment()
-        {
-            var currentUserId = User.Identity.GetUserId(); ClaimTypes.NameIdentifier.ToString();
-            var participant = db.Participants.FirstOrDefault(p => p.ApplicationId == currentUserId);
-            return View(participant);
-        }
-
         [HttpPost]
         public ActionResult Charge(string stripeEmail, string stripeToken)
         {
+            var currentCustomer = User.Identity.GetUserId();
+            var user = db.Participants.Where(p => p.ApplicationId == currentCustomer).Single();
+            var order = db.ProductOrders.Include(p => p.Product).Where(p => p.Order.ParticipantId == user.ParticipantId).ToList();
+            decimal total = 0;
+            foreach (var product in order)
+            {
+                total += product.Total;
+            }
+
             var customers = new CustomerService();
             var charges = new ChargeService();
+            StripeConfiguration.ApiKey = Keys.SecretKey;
             var customer = customers.Create(new CustomerCreateOptions
             {
                 Email = stripeEmail,
                 Source = stripeToken
             });
 
-            var currentUserId = User.Identity.GetUserId();  ClaimTypes.NameIdentifier.ToString();
+            var currentUserId = User.Identity.GetUserId().ToString();
             var participant = db.Participants.FirstOrDefault(p => p.ApplicationId == currentUserId);
-
             var charge = charges.Create(new ChargeCreateOptions
             {
-                Amount = Convert.ToInt64(participant),
+                Amount = Convert.ToInt64(total * 100),
                 Description = "Sample Charge",
                 Currency = "usd",
                 CustomerId = customer.Id
             });
-            return View();
+
+            var completeOrder = db.Orders.Where(o => o.ParticipantId == user.ParticipantId).Single();
+            completeOrder.PendingOrder = false;
+            db.SaveChanges();
+            foreach (var product in order)
+            {
+                product.Paid = true;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult StripeIndex()
         {
-            var stripePublishKey = ConfigurationManager.AppSettings["pk_test_QOLbdMxprQI9OEAV5gkjkV7R004Gpa0nb5"];
+            var stripePublishKey = Keys.PublishableKey;
             ViewBag.StripePublishKey = stripePublishKey;
             return View();
         }

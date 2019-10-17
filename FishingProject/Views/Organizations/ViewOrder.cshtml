@@ -52,25 +52,22 @@
 
 }
 <div>
-    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Payment", "Participants")'">Pay Now</button>
-</div>
-<h5>Total</h5>
+<h5>Order Total</h5>
 <form action="/Participants/Charge" method="POST">
-    @{
-        var total = 
-    }
     <article>
-        <label>Amount: @total.ToString("C", CultureInfo.CurrentCulture)</label>
+        <label>Amount: @ViewBag.Total</label>
     </article>
     <script src="//checkout.stripe.com/v2/checkout.js"
             class="stripe-button"
-            data-key="@ViewBag.Stripe"
+            data-key= "@Keys.PublishableKey"
             data-locale="auto"
             data-description="Sample Charge"
             data-amount="">
     </script>
 </form>
-
+</div>
+<br />
+<br />
 <div>
     @Html.ActionLink("Continue Order", "Merchandise", "Organizations")
 </div>
