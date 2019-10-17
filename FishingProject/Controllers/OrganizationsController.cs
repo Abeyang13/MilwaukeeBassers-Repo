@@ -251,7 +251,7 @@ namespace FishingProject.Controllers
         {
             var currentCustomer = User.Identity.GetUserId();
             var customer = db.Participants.Where(p => p.ApplicationId == currentCustomer).Single();
-            var order = db.ProductOrders.Include(p => p.Product).Where(p => p.Order.ParticipantId == customer.ParticipantId).ToList();
+            var order = db.ProductOrders.Include(p => p.Product).Where(p => p.Order.ParticipantId == customer.ParticipantId && p.Paid == false).ToList();
             decimal total = 0;
             foreach (var product in order)
             {
