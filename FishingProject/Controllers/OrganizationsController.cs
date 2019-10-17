@@ -205,30 +205,44 @@ namespace FishingProject.Controllers
         public ActionResult Merchandise()
         {
             ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
-            productOrderViewModel.Product = db.Products.ToList();
+            productOrderViewModel.Products = db.Products.ToList();
             return View(productOrderViewModel);
         }
         //ADD Order If Order Is Not Pending/Else ADD Product To Existing Order
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddOrder(ProductOrderViewModel productOrderViewModel)
+        public ActionResult AddOrder(Product product)
         {
-            if(productOrderViewModel.Order.PendingOrder == false)
+            var newCustomer = User.Identity.GetUserId();
+            Participant participant = db.Participants.Where(p => p.ApplicationId == newCustomer).Single();
+            Order order = db.Orders.Where(o => o.ParticipantId == participant.ParticipantId && o.PendingOrder == true).FirstOrDefault();
+            if (order == null)
             {
                 var newOrder = new Order();
-                var newCustomer = User.Identity.GetUserId();
-                Participant participant = db.Participants.Where(p => p.ApplicationId == newCustomer).Single();
                 newOrder.ParticipantId = participant.ParticipantId;
-                //newOrder.Total = productOrderViewModel.Product.Where()
                 newOrder.PendingOrder = true;
                 db.Orders.Add(newOrder);
                 db.SaveChanges();
 
                 ProductOrder productOrder = new ProductOrder();
+                productOrder.OrderId = newOrder.OrderId;
+                productOrder.ProductId = product.ProductId;
+                productOrder.Quantity = product.Quantity;
+                productOrder.Size = product.Size;
+                productOrder.Total = product.Quantity * product.Price;
+                db.ProductOrders.Add(productOrder);
+                db.SaveChanges();
             }
-            else if(productOrderViewModel.Order.PendingOrder == true)
+            else
             {
-                
+                ProductOrder productOrder = new ProductOrder();
+                productOrder.OrderId = order.OrderId;
+                productOrder.ProductId = product.ProductId;
+                productOrder.Quantity = product.Quantity;
+                productOrder.Size = product.Size;
+                productOrder.Total = product.Quantity * product.Price;
+                db.ProductOrders.Add(productOrder);
+                db.SaveChanges();
             }
             return RedirectToAction("Merchandise");
         }
@@ -237,11 +251,11 @@ namespace FishingProject.Controllers
         {
             var currentCustomer = User.Identity.GetUserId();
             var customer = db.Participants.Where(p => p.ApplicationId == currentCustomer).Single();
-            var order = db.ProductOrders.Where(p => p.Order.ParticipantId == customer.ParticipantId).Include(p => p.ProductId);
+            var order = db.ProductOrders.Include(p => p.Product).Where(p => p.Order.ParticipantId == customer.ParticipantId).ToList();
             return View(order);
         }
 
-        //Submit Order After Customer/Participant Has Paid For Order
+  /*      //Submit Order After Customer/Participant Has Paid For Order
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SubmitOrder(ProductOrderViewModel productOrderViewModel)
@@ -258,7 +272,7 @@ namespace FishingProject.Controllers
             db.ProductOrders.Add(productOrder);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
+        }*/
         protected override void Dispose(bool disposing)
         {
             if (disposing)

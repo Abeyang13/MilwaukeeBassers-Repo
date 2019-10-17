@@ -7,102 +7,61 @@
 
 <u><h2>Merchandise</h2></u>
 <br />
-@using (Html.BeginForm("AddOrder", "Organizations", "Post"))
-{
-    @Html.AntiForgeryToken()
-    foreach (var product in Model.Product)
+
+    @foreach (var product in Model.Products)
     {
-        if (product.ProductId == 1)
+
+        using (Html.BeginForm("AddOrder", "Organizations", "Post"))
         {
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <img src="~/Content/image/blackshirt.jpg" width="200" height="200" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DisplayFor(modelItem => product.Name)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DisplayFor(modelItem => product.Price)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(modelItem => product.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(modelItem => product.Quantity, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Size, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(modelItem => product.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add To Cart" class="btn btn-primary"/>
-                    </div>
-                </div>
+            @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+                <img src="~/Content/image/blackshirt.jpg" width="200" height="200" />
             </div>
-        }
-        else if (product.ProductId > 1)
-        {
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <div class="col-md-10">
-                        <img src="~/Content/image/blacklongsleeve.jpg" width="200" height="200" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DisplayFor(modelItem => product.Name)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DisplayFor(modelItem => product.Price)
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(modelItem => product.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(modelItem => product.Quantity, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(modelItem => product.Size, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(modelItem => product.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Add To Cart" class="btn btn-primary"/>
-                    </div>
-                </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(modelItem => product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(modelItem => product.Name)
             </div>
-        }
-
-        <br />
-        <br />
-    }
-    <div>
-        <input type="submit" value="View Order" class="btn btn-primary" onclick="location.href='@Url.Action("ViewOrder", "Organizations")'" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(modelItem => product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(modelItem => product.Price)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(modelItem => product.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(modelItem => product.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(modelItem => product.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(modelItem => product.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(modelItem => product.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
+            </div>
+        </div>
+        @Html.HiddenFor(itemModel => product.ProductId)
+        @Html.HiddenFor(itemModel => product.Name)
+        @Html.HiddenFor(itemModel => product.Price)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add To Order" class="btn btn-primary" />
+            </div>
+        </div>
     </div>
-}
+    <br />
+    <br />
+    }
 
+}
+<div>
+    <input type="submit" value="View Order" class="btn btn-primary" onclick="location.href='@Url.Action("ViewOrder", "Organizations")'" />
+</div>
 <div>
     @Html.ActionLink("Back to List", "Index", "Home")
 </div>

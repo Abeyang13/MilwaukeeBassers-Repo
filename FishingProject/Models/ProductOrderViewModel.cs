@@ -8,7 +8,7 @@ namespace FishingProject.Models
 {
     public class ProductOrderViewModel
     {
-        public Order Order { get; set; }
-        public IEnumerable<Product> Product { get; set; }
+        public Product Product { get; set; }
+        public List<Product> Products { get; set; }
     }
 }

@@ -11,6 +11,10 @@ namespace FishingProject.Models
     {
         [Key]
         public int ProductOrderId { get; set; }
+        public string Size { get; set; }
+        public int Quantity { get; set; }
+        public decimal Total { get; set; }
+        public bool Paid { get; set; }
 
         [ForeignKey("Product")]
         public int ProductId { get; set; }

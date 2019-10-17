@@ -198,6 +198,14 @@
     <Compile Include="Migrations\201910151836084_pending.Designer.cs">
       <DependentUpon>201910151836084_pending.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910171822236_updatedProductOrder.cs" />
+    <Compile Include="Migrations\201910171822236_updatedProductOrder.Designer.cs">
+      <DependentUpon>201910171822236_updatedProductOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910172045303_updatedProductOrder2.cs" />
+    <Compile Include="Migrations\201910172045303_updatedProductOrder2.Designer.cs">
+      <DependentUpon>201910172045303_updatedProductOrder2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs" />
@@ -306,7 +314,7 @@
     <Content Include="Views\Organizations\Merchandise.cshtml" />
     <Content Include="Views\Organizations\EditTournamentTeam.cshtml" />
     <Content Include="Views\Organizations\DeleteTeam.cshtml" />
-    <Content Include="Views\Participants\Payment.cshtml" />
+    <Content Include="Views\Organizations\ViewOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -330,6 +338,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910151836084_pending.resx">
       <DependentUpon>201910151836084_pending.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910171822236_updatedProductOrder.resx">
+      <DependentUpon>201910171822236_updatedProductOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910172045303_updatedProductOrder2.resx">
+      <DependentUpon>201910172045303_updatedProductOrder2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
