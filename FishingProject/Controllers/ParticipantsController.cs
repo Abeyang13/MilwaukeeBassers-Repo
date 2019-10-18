@@ -185,7 +185,7 @@ namespace FishingProject.Controllers
                 CustomerId = customer.Id
             });
 
-            var completeOrder = db.Orders.Where(o => o.ParticipantId == user.ParticipantId).Single();
+            var completeOrder = db.Orders.Where(o => o.ParticipantId == user.ParticipantId && o.PendingOrder == true).Single();
             completeOrder.PendingOrder = false;
             db.SaveChanges();
             foreach (var product in order)

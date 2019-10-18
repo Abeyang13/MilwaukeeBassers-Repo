@@ -213,6 +213,9 @@
     <Compile Include="Models\EmailAddress.cs" />
     <Compile Include="Models\EmailMessage.cs" />
     <Compile Include="Models\EmailServerConfiguration.cs" />
+    <Compile Include="Models\File.cs" />
+    <Compile Include="Models\FilePath.cs" />
+    <Compile Include="Models\FileType.cs" />
     <Compile Include="Models\GeoCode.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEmailService.cs" />
