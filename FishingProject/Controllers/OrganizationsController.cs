@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -190,13 +191,35 @@ namespace FishingProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([Bind(Include = "ProductId,Name,Price,Quantity,Size")] Product product)
+        public ActionResult CreateProduct([Bind(Include = "ProductId,Name,Price,Quantity,Size")] Product product, HttpPostedFileBase upload)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Merchandise");
+                if (ModelState.IsValid)
+                {
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        var photo = new File
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            FileType = FileType.Photo,
+                            ContentType = upload.ContentType
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            photo.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        product.Files = new List<File> { photo };
+                    }
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                    return RedirectToAction("Merchandise");
+                }
+            }
+            catch (RetryLimitExceededException /* dex */)
+            {
+                //Log the error (uncomment dex variable name and add a line here to write a log.
+                ModelState.AddModelError("", "Unable to save changes. Try again.");
             }
             return View(product);
         }
@@ -205,7 +228,7 @@ namespace FishingProject.Controllers
         public ActionResult Merchandise()
         {
             ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
-            productOrderViewModel.Products = db.Products.ToList();
+            productOrderViewModel.Products = db.Products.Include(p => p.Files).ToList();
             return View(productOrderViewModel);
         }
         //ADD Order If Order Is Not Pending/Else ADD Product To Existing Order
