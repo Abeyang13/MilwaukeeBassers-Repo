@@ -14,56 +14,60 @@
         using (Html.BeginForm("AddOrder", "Organizations", "Post"))
         {
             @Html.AntiForgeryToken()
-    <div class="form-horizontal">
-        <div class="form-group">
-            @if (product.Files.Any(f => f.FileType == FileType.Picture))
-            {
-                <div class="col-md-10">
-                    <img src="~/File?id=@product.Files.First(f => f.FileType == FileType.Picture).FileId" alt="picture" style="width:200px;height:200px"/>
-                </div>
-            }
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(modelItem => product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(modelItem => product.Name)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(modelItem => product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(modelItem => product.Price)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(modelItem => product.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(modelItem => product.Quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(modelItem => product.Quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(modelItem => product.Size, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(modelItem => product.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
-            </div>
-        </div>
-        @Html.HiddenFor(itemModel => product.ProductId)
-        @Html.HiddenFor(itemModel => product.Name)
-        @Html.HiddenFor(itemModel => product.Price)
-        @if (this.User.IsInRole("Participant"))
+<div class="form-horizontal">
+    <div class="form-group">
+        @if (product.Files.Any(f => f.FileType == FileType.Picture))
         {
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Add To Order" class="btn btn-primary"/>
-                </div>
+            <div class="col-md-10">
+                <img src="~/File?id=@product.Files.First(f => f.FileType == FileType.Picture).FileId" alt="picture" style="width:200px;height:200px" />
             </div>
-        }
-        else
-        {
-            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("Login", "Account")'">Add To Order</button>
         }
     </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => product.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => product.Name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => product.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => product.Price)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => product.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(modelItem => product.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(modelItem => product.Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(modelItem => product.Size, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(modelItem => product.Size, new SelectList(Enum.GetValues(typeof(ProductSize))), "Select Size", new { @class = "form-control" })
+        </div>
+    </div>
+    @Html.HiddenFor(itemModel => product.ProductId)
+    @Html.HiddenFor(itemModel => product.Name)
+    @Html.HiddenFor(itemModel => product.Price)
+    @if (this.User.IsInRole("Participant"))
+     {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add To Order" class="btn btn-primary" />
+            </div>
+        </div>
+     }
+     else
+     {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Login", "Account")'">Add To Order</button>
+            </div>
+        </div>
+     }
+</div>
     <br />
     <br />
     }
