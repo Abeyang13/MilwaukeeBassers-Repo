@@ -30,6 +30,7 @@ namespace FishingProject.Models
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<File> Files { get; set; }
+        public DbSet<FilePath> FilePaths { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

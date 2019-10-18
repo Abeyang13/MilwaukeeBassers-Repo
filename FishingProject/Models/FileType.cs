@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace FishingProject.Models
+﻿namespace FishingProject.Models
 {
     public enum FileType
     {

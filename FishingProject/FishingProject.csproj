@@ -183,6 +183,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Content\Keys.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganizationsController.cs" />
@@ -209,6 +210,14 @@
     <Compile Include="Migrations\201910181556584_Files.cs" />
     <Compile Include="Migrations\201910181556584_Files.Designer.cs">
       <DependentUpon>201910181556584_Files.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910181653464_updated.cs" />
+    <Compile Include="Migrations\201910181653464_updated.Designer.cs">
+      <DependentUpon>201910181653464_updated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910181811515_updated2.cs" />
+    <Compile Include="Migrations\201910181811515_updated2.Designer.cs">
+      <DependentUpon>201910181811515_updated2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -326,6 +335,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\File\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -355,6 +365,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910181556584_Files.resx">
       <DependentUpon>201910181556584_Files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910181653464_updated.resx">
+      <DependentUpon>201910181653464_updated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910181811515_updated2.resx">
+      <DependentUpon>201910181811515_updated2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

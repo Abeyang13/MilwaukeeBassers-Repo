@@ -1,5 +1,4 @@
-﻿using FishingProject;
-using FishingProject.Models;
+﻿using FishingProject.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
@@ -185,13 +184,12 @@ namespace FishingProject.Controllers
 
         public ActionResult CreateProduct()
         {
-            Product product = new Product();
-            return View(product);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateProduct([Bind(Include = "ProductId,Name,Price,Quantity,Size")] Product product, HttpPostedFileBase upload)
+        public ActionResult CreateProduct([Bind(Include = "Name,Price")] Product product, HttpPostedFileBase upload)
         {
             try
             {
@@ -202,7 +200,7 @@ namespace FishingProject.Controllers
                         var photo = new File
                         {
                             FileName = System.IO.Path.GetFileName(upload.FileName),
-                            FileType = FileType.Photo,
+                            FileType = FileType.Picture,
                             ContentType = upload.ContentType
                         };
                         using (var reader = new System.IO.BinaryReader(upload.InputStream))
