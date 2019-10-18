@@ -45,7 +45,7 @@
             @if (this.User.IsInRole("Organization"))
             {
             <td>
-                @Html.ActionLink("EditTournamentTeam", "EditTournamentTeam", new { id = item.TournamentTeamId }) |
+                @Html.ActionLink("Edit Tournament Team", "EditTournamentTeam", new { id = item.TournamentTeamId }) |
                 @Html.ActionLink("Delete Team", "DeleteTeam", new { id = item.TournamentTeamId })
             </td>
             }

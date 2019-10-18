@@ -51,11 +51,18 @@
         @Html.HiddenFor(itemModel => product.ProductId)
         @Html.HiddenFor(itemModel => product.Name)
         @Html.HiddenFor(itemModel => product.Price)
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add To Order" class="btn btn-primary"/>
+        @if (this.User.IsInRole("Participant"))
+        {
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Add To Order" class="btn btn-primary"/>
+                </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("Login", "Account")'">Add To Order</button>
+        }
     </div>
     <br />
     <br />
