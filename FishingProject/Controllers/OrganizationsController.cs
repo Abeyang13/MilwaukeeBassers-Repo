@@ -265,7 +265,7 @@ namespace FishingProject.Controllers
                 db.ProductOrders.Add(productOrder);
                 db.SaveChanges();
             }
-            return RedirectToAction("Merchandise");
+            return RedirectToAction("ViewOrder");
         }
         //GET Order That Contains All Products For That Order
         public ActionResult ViewOrder()

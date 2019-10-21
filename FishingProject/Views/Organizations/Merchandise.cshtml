@@ -72,9 +72,13 @@
     <br />
     }
 }
+@if (User.IsInRole("Participant"))
+{
 <div>
     <input type="submit" value="View Order" class="btn btn-primary" onclick="location.href='@Url.Action("ViewOrder", "Organizations")'" />
 </div>
+}
+<br />
 <div>
     @Html.ActionLink("Back to List", "Index", "Home")
 </div>
