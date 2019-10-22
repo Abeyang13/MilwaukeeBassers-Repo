@@ -263,7 +263,7 @@ namespace FishingProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProductOrder productOrder = db.ProductOrders.Find(id);
+            ProductOrder productOrder = db.ProductOrders.Include(p => p.Product).Include(p => p.Order).Where(p => p.ProductOrderId == id).Single();
             if (productOrder == null)
             {
                 return HttpNotFound();
@@ -280,6 +280,30 @@ namespace FishingProject.Controllers
             productId.Size = productOrder.Product.Size;
             productId.Total = productOrder.Quantity * productId.Product.Price;
             db.Entry(productId).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("ViewOrder");
+        }
+
+        public ActionResult DeleteProduct(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProductOrder productOrder = db.ProductOrders.Include(p => p.Product).Include(p => p.Order).Where(p => p.ProductOrderId == id).Single();
+            if (productOrder == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productOrder);
+        }
+
+        // POST: Delete Product from Order
+        [HttpPost]
+        public ActionResult DeleteProduct(ProductOrder productOrder)
+        {
+            var productOrderId = db.ProductOrders.Find(productOrder.ProductOrderId);
+            db.ProductOrders.Remove(productOrderId);
             db.SaveChanges();
             return RedirectToAction("ViewOrder");
         }
