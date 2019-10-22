@@ -11,7 +11,7 @@
     @foreach (var product in Model.Products)
     {
 
-        using (Html.BeginForm("AddOrder", "Organizations", "Post"))
+        using (Html.BeginForm("AddOrder", "Participants", "Post"))
         {
             @Html.AntiForgeryToken()
 <div class="form-horizontal">

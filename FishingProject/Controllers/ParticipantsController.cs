@@ -211,5 +211,58 @@ namespace FishingProject.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //ADD Order If Order Is Not Pending/Else ADD Product To Existing Order
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddOrder(Models.Product product)
+        {
+            var newCustomer = User.Identity.GetUserId();
+            Participant participant = db.Participants.Where(p => p.ApplicationId == newCustomer).Single();
+            Models.Order order = db.Orders.Where(o => o.ParticipantId == participant.ParticipantId && o.PendingOrder == true).FirstOrDefault();
+            if (order == null)
+            {
+                var newOrder = new Models.Order();
+                newOrder.ParticipantId = participant.ParticipantId;
+                newOrder.PendingOrder = true;
+                db.Orders.Add(newOrder);
+                db.SaveChanges();
+
+                ProductOrder productOrder = new ProductOrder();
+                productOrder.OrderId = newOrder.OrderId;
+                productOrder.ProductId = product.ProductId;
+                productOrder.Quantity = product.Quantity;
+                productOrder.Size = product.Size;
+                productOrder.Total = product.Quantity * product.Price;
+                db.ProductOrders.Add(productOrder);
+                db.SaveChanges();
+            }
+            else
+            {
+                ProductOrder productOrder = new ProductOrder();
+                productOrder.OrderId = order.OrderId;
+                productOrder.ProductId = product.ProductId;
+                productOrder.Quantity = product.Quantity;
+                productOrder.Size = product.Size;
+                productOrder.Total = product.Quantity * product.Price;
+                db.ProductOrders.Add(productOrder);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ViewOrder");
+        }
+        //GET Order That Contains All Products For That Order
+        public ActionResult ViewOrder()
+        {
+            var currentCustomer = User.Identity.GetUserId();
+            var customer = db.Participants.Where(p => p.ApplicationId == currentCustomer).Single();
+            var order = db.ProductOrders.Include(p => p.Product).Where(p => p.Order.ParticipantId == customer.ParticipantId && p.Paid == false).ToList();
+            decimal total = 0;
+            foreach (var product in order)
+            {
+                total += product.Total;
+            }
+            ViewBag.Total = total;
+            return View(order);
+        }
     }
 }
