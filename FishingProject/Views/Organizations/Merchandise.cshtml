@@ -14,7 +14,7 @@
         using (Html.BeginForm("AddOrder", "Participants", "Post"))
         {
             @Html.AntiForgeryToken()
-<div class="form-horizontal">
+    <div class="form-horizontal">
     <div class="form-group">
         @if (product.Files.Any(f => f.FileType == FileType.Picture))
         {
@@ -75,7 +75,7 @@
 @if (User.IsInRole("Participant"))
 {
 <div>
-    <input type="submit" value="View Order" class="btn btn-primary" onclick="location.href='@Url.Action("ViewOrder", "Organizations")'" />
+    <input type="submit" value="View Order" class="btn btn-primary" onclick="location.href='@Url.Action("ViewOrder", "Participants")'" />
 </div>
 }
 <br />

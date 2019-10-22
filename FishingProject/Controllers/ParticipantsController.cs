@@ -203,15 +203,6 @@ namespace FishingProject.Controllers
             return View();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         //ADD Order If Order Is Not Pending/Else ADD Product To Existing Order
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -263,6 +254,42 @@ namespace FishingProject.Controllers
             }
             ViewBag.Total = total;
             return View(order);
+        }
+
+        //Get Product id
+        public ActionResult EditOrder(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProductOrder productOrder = db.ProductOrders.Find(id);
+            if (productOrder == null)
+            {
+                return HttpNotFound();
+            }
+            return View(productOrder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditOrder(ProductOrder productOrder)
+        {
+            var productId = db.ProductOrders.Include(p => p.Product).Include(p => p.Order).Where(p => p.ProductOrderId == productOrder.ProductOrderId).Single();
+            productId.Quantity = productOrder.Quantity;
+            productId.Size = productOrder.Product.Size;
+            productId.Total = productOrder.Quantity * productId.Product.Price;
+            db.Entry(productId).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("ViewOrder");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
