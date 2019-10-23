@@ -7,7 +7,7 @@
     <thead>
         <tr class="bg-primary">
             <th>
-                @Html.DisplayNameFor(model => model.Order.OrderId)
+                Participant Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Product.Name)
@@ -24,7 +24,7 @@
    @foreach (var item in Model){
         <tr class="active">
             <td>
-                @Html.DisplayFor(modelItem => item.OrderId)
+                @Html.DisplayFor(modelItem => item.Order.Participant.FirstName) @Html.DisplayFor(modelItem => item.Order.Participant.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)

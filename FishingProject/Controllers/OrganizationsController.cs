@@ -233,7 +233,7 @@ namespace FishingProject.Controllers
         //Get All Orders
         public ActionResult ViewAllOrders()
         {
-            var orders = db.ProductOrders.Include(p => p.Product).Where(p => p.Paid == true).ToList();
+            var orders = db.ProductOrders.Include(p => p.Product).Include(p => p.Order.Participant).Where(p => p.Paid == true).ToList();
             return View(orders);
         }
         protected override void Dispose(bool disposing)
