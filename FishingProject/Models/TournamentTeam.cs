@@ -22,7 +22,7 @@ namespace FishingProject.Models
 
         [Display(Name = "Big Bass")]
         public double BigBass { get; set; }
-        [Display(Name = "# Of Fishes")]
+        [Display(Name = "# Of Fish")]
         public int NumberOfFishes { get; set; }
         [Display(Name = "Total Weight")]
         public double TotalWeight { get; set; }
