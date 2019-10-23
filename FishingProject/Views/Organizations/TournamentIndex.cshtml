@@ -30,7 +30,7 @@
         <td>
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("AverageBigBassPerTournament", "Home", new { id = item.TournamentId })'">Average Big Bass</button> |
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("AverageTeamWeightPerTeamChart", "Home", new { id = item.TournamentId })'">Average Team Weight</button> |
-            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTeamAmountChart", "Home", new { id = item.TournamentId })'">Average Teams Per Tournament</button> |
+            <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTeamAmountChart", "Home", new { id = item.TournamentId })'">Teams Per Tournament</button> |
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentDetails", "Organizations", new { id = item.TournamentId })'">Tournament Details</button> |
             <button type="button" class="btn-primary btn-xs" onclick="location.href='@Url.Action("TournamentTable", "Organizations", new { id = item.TournamentId })'">Teams</button> |
             @if (item.TournamentDate > DateTime.Now)

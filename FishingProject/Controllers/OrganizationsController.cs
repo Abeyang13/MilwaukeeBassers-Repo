@@ -122,7 +122,7 @@ namespace FishingProject.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TournamentTeam tournamentTeam = db.TournamentTeams.Find(id);
+            TournamentTeam tournamentTeam = db.TournamentTeams.Include(t => t.Team).Include(t => t.Tournament).Where(t => t.TournamentTeamId == id).FirstOrDefault();
             if (tournamentTeam == null)
             {
                 return HttpNotFound();
@@ -133,12 +133,12 @@ namespace FishingProject.Controllers
         // POST: Teams/Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ConfirmDeleteTeam(TournamentTeam tournamentTeam)
+        public ActionResult DeleteTeam(TournamentTeam tournamentTeam)
         {
             var tournamentTeamId = db.TournamentTeams.Find(tournamentTeam.TournamentTeamId);
             db.TournamentTeams.Remove(tournamentTeamId);
             db.SaveChanges();
-            return RedirectToAction("TournamentTable");
+            return RedirectToAction("TournamentTable", new { id = tournamentTeamId.TournamentId });
         }
 
         public string ConvertAddressToGoogleFormat(Address address)
