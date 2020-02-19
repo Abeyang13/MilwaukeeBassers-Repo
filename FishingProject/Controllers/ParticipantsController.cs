@@ -120,7 +120,7 @@ namespace FishingProject.Controllers
             return RedirectToAction("Index");
         }
 
-        //GET: Participants/CreateTeam
+        //GET: Participants/CreateTeam when registering for a certain tournament
         public ActionResult RegisterTeam(int id)
         {
             TournamentTeamViewModels tournamentTeamView = new TournamentTeamViewModels();

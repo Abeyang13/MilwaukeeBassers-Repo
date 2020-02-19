@@ -41,12 +41,14 @@ namespace FishingProject.Controllers
             return View(organization);
         }
 
-        // GET: Tournaments
+        // GET: Tournaments/Shows a List of tournaments from the most current date down
         public ActionResult TournamentIndex()
         {
             var tournaments = db.Tournaments.ToList().OrderByDescending(t => t.TournamentDate);
             return View(tournaments);
         }
+
+        //Lets the organization create new tournaments that includes the Lake information
         public ActionResult CreateTournament()
         {
             Tournament tournament = new Tournament();
@@ -108,7 +110,7 @@ namespace FishingProject.Controllers
             return RedirectToAction("TournamentTable", new { id = tournamentTeamId.TournamentId });
         }
 
-        //GET: List of tournament teams
+        //GET: List of tournament teams of certain tournament by the highest weight down 
         public ActionResult TournamentTable(int id)
         {
             var tournamentId = db.TournamentTeams.OrderByDescending(t => t.TotalWeight).Include(t => t.Team).Where(t => t.TournamentId == id);
@@ -156,6 +158,7 @@ namespace FishingProject.Controllers
             return geocode;
         }
 
+        //Create Lake so that when you create a tournament it can be selected in the drop down box
         public ActionResult CreateLake()
         {
             Lake lake = new Lake();
@@ -182,6 +185,7 @@ namespace FishingProject.Controllers
             return View(lake);
         }
 
+        //Creating a product/merchandise to put for sale in ecommerce store
         public ActionResult CreateProduct()
         {
             return View();
@@ -222,7 +226,7 @@ namespace FishingProject.Controllers
             return View(product);
         }
 
-        //GET List Of All Products
+        //GET List Of All Products for sale
         public ActionResult Merchandise()
         {
             ProductOrderViewModel productOrderViewModel = new ProductOrderViewModel();
@@ -230,7 +234,7 @@ namespace FishingProject.Controllers
             return View(productOrderViewModel);
         }
 
-        //Get All Orders
+        //Get All Orders that are completed
         public ActionResult ViewAllOrders()
         {
             var orders = db.ProductOrders.Include(p => p.Product).Include(p => p.Order.Participant).Where(p => p.Paid == true).ToList();
